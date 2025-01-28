@@ -17,7 +17,7 @@ function TwitchChecker() {
     setError(""); // Reset error message
 
     if (!username.trim()) {
-      setError("⚠️ Please enter a username!");
+      setError("Please enter a username!");
       return;
     }
 
