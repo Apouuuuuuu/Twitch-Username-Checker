@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-// Route pour vérifier la disponibilité d'un nom Twitch
+// Get data from Twitch API
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const username = searchParams.get("username");

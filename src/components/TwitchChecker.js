@@ -25,7 +25,7 @@ function TwitchChecker() {
     if (!usernameRegex.test(username)) {
       setAvailability(
         <div className="text-red-500 flex justify-center items-center text-center mt-4">
-          <FaTimesCircle className="mr-2"/> 4-25 characters, letters, numbers, and dashes only.
+          <FaTimesCircle className="mr-2 text-lg" size={20}/> 4-25 characters, letters, numbers, and dashes only.
         </div>
       );
       return;
@@ -34,42 +34,55 @@ function TwitchChecker() {
     try {
       // Send request to the Next.js API
       const response = await axios.get(`/api/check-twitch?username=${username}`);
-
+    
       // Handling API response
       if (response.data.error) {
-        if (response.data.error === "The OAuth token is invalid. Please regenerate the token.") {
+        if (
+          response.data.error === "The OAuth token is invalid. Please regenerate the token." || 
+          response.status === 401 || 
+          (response.data.message && response.data.message.includes("OAuth token"))
+        ) {
           setAvailability(
             <div className="text-red-500 flex justify-center items-center text-center mt-4">
-              <FaTimesCircle className="mr-2"/> Invalid token. Please regenerate it.
+              <FaTimesCircle className="mr-2 text-lg" size={20}/> Invalid token. Please regenerate it.
             </div>
           );
         } else {
           setAvailability(
             <div className="text-red-500 flex justify-center items-center text-center mt-4">
-              <FaTimesCircle className="mr-2"/> Unknown error.
+              <FaTimesCircle className="mr-2 text-lg" size={20}/> Unknown error.
             </div>
           );
         }
       } else if (response.data.data && response.data.data.length === 0) {
         setAvailability(
           <div className="text-green-500 flex justify-center items-center text-center mt-4">
-            <FaCheckCircle className="mr-2"/> This username is available !
+            <FaCheckCircle className="mr-2 text-lg" size={20}/> Available!
           </div>
         );
       } else {
         setAvailability(
           <div className="text-red-500 flex justify-center items-center text-center mt-4">
-            <FaTimesCircle className="mr-2"/> This username is already taken.
+            <FaTimesCircle className="mr-2 text-lg" size={20}/> Already taken.
           </div>
         );
       }
     } catch (error) {
       console.error("Error:", error);
-      setAvailability(
-        <div className="text-red-500 flex justify-center items-center text-center mt-4">
-          <FaTimesCircle className="mr-2"/> Server error.
-        </div>
-      );
+    
+      if (error.response && error.response.status === 401) {
+        setAvailability(
+          <div className="text-red-500 flex justify-center items-center text-center mt-4">
+            <FaTimesCircle className="mr-2 text-lg" size={20}/> Invalid token. Please regenerate it.
+          </div>
+        );
+      } else {
+        setAvailability(
+          <div className="text-red-500 flex justify-center items-center text-center mt-4">
+            <FaTimesCircle className="mr-2 text-lg" size={20}/> Server error.
+          </div>
+        );
+      }
     }
   };
 
