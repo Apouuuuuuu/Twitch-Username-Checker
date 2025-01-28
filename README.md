@@ -38,10 +38,18 @@ TWITCH_CLIENT_ID=your_client_id_here
 TWITCH_ACCESS_TOKEN=your_access_token_here
 ```
 
+Go on https://dev.twitch.tv/console. <br/>
+Create a new "application integration" on http://localhost and get the TWITCH_CLIENT_ID (identifiant) <br/>
+For the TWITCH_ACCESS_TOKEN you have to execute this command with your TWITCH_CLIENT_ID and your Secret client key.
+```ps1
+curl -X POST "https://id.twitch.tv/oauth2/token?client_id=YOUR_CLIENT_ID&client_secret=YOUR_SECRET_KEY&grant_type=client_credentials"
+```
+You will get a TWITCH_ACCESS_TOKEN.
+You also can run this command to check if your access token is working
+```ps1
+curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" -H "Client-Id: TWITCH_CLIENT_ID" https://id.twitch.tv/oauth2/validate
+```
 ⚠️ Your Twitch token will expire periodically. You may need to refresh it via Twitch Developer Console.
-
-
-
 
 ## 🛠️ Deployment
 
