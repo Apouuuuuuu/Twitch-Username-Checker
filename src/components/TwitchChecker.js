@@ -34,7 +34,7 @@ function TwitchChecker() {
     try {
       // Send request to the Next.js API
       const response = await axios.get(`/api/check-twitch?username=${username}`);
-    
+
       // Handling API response
       if (response.data.error) {
         if (
@@ -69,7 +69,7 @@ function TwitchChecker() {
       }
     } catch (error) {
       console.error("Error:", error);
-    
+
       if (error.response && error.response.status === 401) {
         setAvailability(
           <div className="text-red-500 flex justify-center items-center text-center mt-4">
@@ -87,7 +87,7 @@ function TwitchChecker() {
   };
 
   return (
-    <div className="container relative">
+    <div className="container relative flex flex-col items-center">
       {/* Background image */}
       <div className="background-image"></div>
 
@@ -134,6 +134,18 @@ function TwitchChecker() {
             </a>.
           </p>
         </div>
+      </div>
+
+      {/* Footer - Created by Théo Gagelin */}
+      <div className="mt-4 text-gray-400 text-sm">
+        <a 
+          href="https://github.com/Apouuuuuuu" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="hover:text-purple-400 transition-colors"
+        >
+          Created by <span className="font-semibold">Théo Gagelin</span>
+        </a>
       </div>
     </div>
   );
