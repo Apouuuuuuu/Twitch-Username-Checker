@@ -3,6 +3,7 @@
 This project is a **Twitch Username Availability Checker** built with **Next.js**, **TailwindCSS**, and **React Icons**.  
 It allows users to check if a Twitch username is available using the **Twitch API**.
 
+### You can try it at google.com
 ---
 
 ## ✨ Features
@@ -51,6 +52,10 @@ npm run dev
 Your app will be available at: http://localhost:3000 🎉
 
 
+Vercel deployment:
+```bash
+vercel
+``` 
 
 
 ## ⚙️ API Setup (Backend)
